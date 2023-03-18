@@ -175,9 +175,11 @@ public struct CodeEditor: View {
     /// whitespace as on the previous line.
     public static let smartIndent = Flags(rawValue: 1 << 2)
     
-    public static let defaultViewerFlags : Flags = [ .selectable ]
-    public static let defaultEditorFlags : Flags =
-                        [ .selectable, .editable, .smartIndent ]
+    /// Whether bouncing always occurs when vertical scrolling reaches the end of the content.
+    public static let alwaysBounceVertical = Flags(rawValue: 1 << 3)
+    
+    public static let defaultViewerFlags : Flags = [ .selectable, .alwaysBounceVertical ]
+    public static let defaultEditorFlags : Flags = [ .selectable, .editable, .smartIndent, .alwaysBounceVertical]
   }
   
   @frozen public enum IndentStyle: Equatable {

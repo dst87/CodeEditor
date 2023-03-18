@@ -195,6 +195,9 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
     textView.indentStyle          = indentStyle
     textView.isSmartIndentEnabled = flags.contains(.smartIndent)
     textView.autoPairCompletion   = autoPairs
+    #if os(iOS)
+      textView.alwaysBounceVertical = flags.contains(.alwaysBounceVertical)
+    #endif
 
     if source.wrappedValue != textView.string {
       if let textStorage = textView.codeTextStorage {
@@ -255,6 +258,7 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
         textView.delegate = context.coordinator
       }
       textView.textContainerInset = inset
+      scrollView.verticalScrollElasticity = flags.contains(.alwaysBounceVertical) ? .allowed : .automatic
       updateTextView(textView)
     }
   #else // iOS etc
